@@ -1,0 +1,82 @@
+name: grapheditor
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  fores: ^1.0.5
+  uuid: ^4.4.2
+  vector_math: ^2.2.0
+  flutter_highlight: ^0.7.0
+  yaml: ^3.1.3
+  file_picker: ^10.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: "^0.14.4"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/i18n/
+  fonts:
+    - family: JetBrainsMono
+      fonts:
+        - asset: fonts/JetBrainsMono-Bold.ttf
+        - asset: fonts/JetBrainsMono-BoldItalic.ttf
+        - asset: fonts/JetBrainsMono-ExtraBold.ttf
+        - asset: fonts/JetBrainsMono-ExtraBoldItalic.ttf
+        - asset: fonts/JetBrainsMono-ExtraLight.ttf
+        - asset: fonts/JetBrainsMono-ExtraLightItalic.ttf
+        - asset: fonts/JetBrainsMono-Italic.ttf
+        - asset: fonts/JetBrainsMono-Light.ttf
+        - asset: fonts/JetBrainsMono-LightItalic.ttf
+        - asset: fonts/JetBrainsMono-Medium.ttf
+        - asset: fonts/JetBrainsMono-MediumItalic.ttf
+        - asset: fonts/JetBrainsMono-Regular.ttf
+        - asset: fonts/JetBrainsMono-SemiBold.ttf
+        - asset: fonts/JetBrainsMono-SemiBoldItalic.ttf
+        - asset: fonts/JetBrainsMono-Thin.ttf
+        - asset: fonts/JetBrainsMono-ThinItalic.ttf
+        - asset: fonts/JetBrainsMonoNL-Bold.ttf
+        - asset: fonts/JetBrainsMonoNL-BoldItalic.ttf
+        - asset: fonts/JetBrainsMonoNL-ExtraBold.ttf
+        - asset: fonts/JetBrainsMonoNL-ExtraBoldItalic.ttf
+        - asset: fonts/JetBrainsMonoNL-ExtraLight.ttf
+        - asset: fonts/JetBrainsMonoNL-ExtraLightItalic.ttf
+        - asset: fonts/JetBrainsMonoNL-Italic.ttf
+        - asset: fonts/JetBrainsMonoNL-Light.ttf
+        - asset: fonts/JetBrainsMonoNL-LightItalic.ttf
+        - asset: fonts/JetBrainsMonoNL-Medium.ttf
+        - asset: fonts/JetBrainsMonoNL-MediumItalic.ttf
+        - asset: fonts/JetBrainsMonoNL-Regular.ttf
+        - asset: fonts/JetBrainsMonoNL-SemiBold.ttf
+        - asset: fonts/JetBrainsMonoNL-SemiBoldItalic.ttf
+        - asset: fonts/JetBrainsMonoNL-Thin.ttf
+        - asset: fonts/JetBrainsMonoNL-ThinItalic.ttf
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/icons/app_icon.png"
+  windows:
+    generate: true
+    image_path: "assets/icons/app_icon.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/icons/app_icon.png"
