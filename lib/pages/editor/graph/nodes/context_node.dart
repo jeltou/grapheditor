@@ -227,7 +227,4 @@ class ContextNode extends AbstractNode implements ExecutableNode {
 
   @override
   void executeAfter(Map<String, dynamic> ctx, {String? chosenPort}) {}
-
-  @override
-  String? choosePort(Map<String, dynamic> ctx) => null;
 }

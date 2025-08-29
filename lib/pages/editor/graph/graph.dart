@@ -15,97 +15,66 @@ import 'package:vector_math/vector_math_64.dart' hide Colors;
 
 // Edges
 part 'edges/abstract_edge.dart';
-
 part 'edges/default_edge.dart';
-
 part 'edges/branch_edge.dart';
 
 // Nodes
 part 'nodes/abstract_node.dart';
-
 part 'nodes/executable_node.dart';
 part 'nodes/async_executable_node.dart';
 part 'nodes/choose_port_node.dart';
-
 part 'nodes/abstract_label_node.dart';
-
 part 'nodes/root_node.dart';
-
 part 'nodes/default_node.dart';
-
 part 'nodes/end_node.dart';
-
 part 'nodes/decision_node.dart';
-
 part 'nodes/context_node.dart';
-
 part 'nodes/math_node.dart';
-
 part 'nodes/http_node.dart';
+part 'nodes/mapper_node.dart';
 
 // Shared
 part 'shared/graph_object_shared.dart';
-
 part 'shared/utils.dart';
-
 part 'shared/decision_branch.dart';
-
 part 'shared/context_actions.dart';
-
 part 'shared/test_context.dart';
+part 'shared/mapper_rule.dart';
 
 // Layouts
 part 'layout/abstract_layout.dart';
-
 part 'layout/layout_options.dart';
-
 part 'layout/grid_layout.dart';
-
 part 'layout/circular_layout.dart';
-
 part 'layout/hierarchical_layout.dart';
-
 part 'layout/tree_layout.dart';
 
 // Widgets
 part 'widgets/node_creator.dart';
-
 part 'widgets/node_wrapper.dart';
-
 part 'widgets/graph_canvas.dart';
-
 part 'widgets/grid.dart';
-
 part 'widgets/edge_renderer.dart';
-
 part 'widgets/edge_preview_renderer.dart';
-
 part 'widgets/decision_branch_editor.dart';
-
 part 'widgets/decision_rule_editor.dart';
-
 part 'widgets/node_scaffold.dart';
-
 part 'widgets/graph_runtime.dart';
+part 'widgets/mapper_rule_editor.dart';
 
 // Forms
 part 'forms/label_node_form.dart';
-
 part 'forms/descision_node_form.dart';
-
 part 'forms/context_node_form.dart';
-
 part 'forms/math_node_form.dart';
 part 'forms/http_node_form.dart';
+part 'forms/mapper_node_form.dart';
 
 // GraphRuntime
 part 'runtime/graph_runtime.dart';
 part 'runtime/graph_runtime_calc_all_routes.dart';
-
 part 'runtime/runtime_result.dart';
-
 part 'runtime/runtime_step.dart';
-
 part 'runtime/runtime_hooks.dart';
 
 // Exceptions
@@ -113,12 +82,10 @@ part 'exceptions/graph_exceptions.dart';
 
 // Factories
 part 'factories/node_factory.dart';
-
 part 'factories/edge_factory.dart';
 
 // Import Export
 part 'imex/graph_converter_interface.dart';
-
 part 'imex/converter/json_graph_converter.dart';
 
 class Graph {

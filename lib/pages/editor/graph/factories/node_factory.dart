@@ -87,6 +87,18 @@ Map<String, NodeFactory> defaultNodeDecoders() {
       final int? prec = (m['precision'] as num?)?.toInt();
       return MathNode(title: title, expr: expr, outPath: out, rounding: round, precision: prec);
     },
+    'MapperNode': (Map<String, dynamic> m) {
+      final String title = (m['title'] as String?)?.trim() ?? 'Map Context';
+      final List<MapperRule> rules = ((m['rules'] as List?) ?? const <dynamic>[])
+          .cast<Map<String, dynamic>>()
+          .map(MapperRule.fromMap)
+          .toList();
+      final MapperNode n = MapperNode(title: title, rules: rules);
+
+      // Position/Size already handled by your JsonGraphConverter’s _buildNodeFromMap,
+      // falls back to node.setPosition(...) and width/height assignment.
+      return n;
+    },
   };
 }
 
@@ -214,6 +226,28 @@ Map<String, NodeTypeDescriptor> defaultNodeRegistry({Map<String, NodeFactory>? f
             ..parseJsonResponse = (data['parseJsonResponse'] as bool?) ?? node.parseJsonResponse
             ..savePath = (data['savePath'] as String?) ?? node.savePath
             ..timeoutMs = (data['timeoutMs'] as num?)?.toInt() ?? node.timeoutMs;
+        }
+      },
+    ),
+    'MapperNode': NodeTypeDescriptor(
+      type: 'MapperNode',
+      displayName: 'Mapper Node',
+      buildSection: (BuildContext context, Map<String, dynamic> data) => MapperNodeForm(data: data),
+      buildNode: (Map<String, dynamic> data) {
+        final String title = (data['title'] as String?)?.trim() ?? 'Map Context';
+        final List<MapperRule> rules = ((data['rules'] as List?) ?? const <dynamic>[])
+            .cast<Map<String, dynamic>>()
+            .map(MapperRule.fromMap)
+            .toList();
+        return MapperNode(title: title, rules: rules);
+      },
+      applyToNode: (AbstractNode node, Map<String, dynamic> data) {
+        if (node is MapperNode) {
+          node.title = (data['title'] as String?)?.trim() ?? 'Map Context';
+          node.rules = ((data['rules'] as List?) ?? const <dynamic>[])
+              .cast<Map<String, dynamic>>()
+              .map(MapperRule.fromMap)
+              .toList();
         }
       },
     ),
