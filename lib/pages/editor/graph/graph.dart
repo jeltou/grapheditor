@@ -100,6 +100,7 @@ part 'forms/http_node_form.dart';
 
 // GraphRuntime
 part 'runtime/graph_runtime.dart';
+part 'runtime/graph_runtime_calc_all_routes.dart';
 
 part 'runtime/runtime_result.dart';
 

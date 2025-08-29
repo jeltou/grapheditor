@@ -51,6 +51,8 @@ AbstractNode? resolveStartNode(Graph graph) {
   return null;
 }
 
+bool isEnd(AbstractNode n) => n is EndNode;
+
 extension _Let<T> on T { R let<R>(R Function(T it) f) => f(this); }
 
 String normalizeTypeString(String raw) {

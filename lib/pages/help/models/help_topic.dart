@@ -17,4 +17,5 @@ class HelpTopic {
 List<HelpTopic> helpTopicsFromAssets() => <HelpTopic>[
   HelpTopic(id: 'getting-started', title: 'Getting started', assetPath: 'assets/docs/getting_started.md'),
   HelpTopic(id: 'nodes', title: 'Nodes', assetPath: 'assets/docs/nodes.md'),
+  HelpTopic(id: 'Graph Runtime', title: 'Graph Runtime', assetPath: 'assets/docs/graph_runtime.md'),
 ];

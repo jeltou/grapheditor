@@ -11,6 +11,14 @@ enum RuntimeStopReason {
   userCancelled,
 }
 
+enum RouteStopReason {
+  reachedEndNode,
+  deadEnd,
+  maxStepsExceeded,
+  maxVisitsExceeded,
+  maxPathsExceeded,
+}
+
 class RuntimeResult {
   final int stepsTaken;
   final int executionTime;
@@ -32,4 +40,17 @@ class RuntimeResult {
   List<AbstractNode> get visitedNodes => steps.map((s) => s.node).toList(growable: false);
   List<AbstractEdge> get traversedEdges =>
       steps.where((s) => s.chosenEdge != null).map((s) => s.chosenEdge!).toList(growable: false);
+}
+
+
+class AllRoutesResult {
+  final List<RoutePath> paths;
+  final bool truncated;
+  final int exploredPaths;
+
+  const AllRoutesResult({
+    required this.paths,
+    required this.truncated,
+    required this.exploredPaths,
+  });
 }
