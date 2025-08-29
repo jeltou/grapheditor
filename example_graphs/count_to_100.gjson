@@ -1,0 +1,173 @@
+{
+  "format": "graph.v1",
+  "version": 1,
+  "nodes": [
+    {
+      "id": "f979752c-c9f8-4f59-9e8d-c31129ad2b25",
+      "nodeType": "RootNode",
+      "position": {
+        "x": 204.0,
+        "y": 24.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "count_to_100"
+    },
+    {
+      "id": "bedd87b1-f2bc-4887-9946-30f0d12fb2bc",
+      "nodeType": "ContextNode",
+      "position": {
+        "x": 204.0,
+        "y": 244.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 131.0
+      },
+      "title": "InitValues",
+      "actions": [
+        {
+          "op": "setValue",
+          "path": "number",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "1b18ebf5-58be-4d54-bdf5-6f220939194a",
+      "nodeType": "DecisionNode",
+      "position": {
+        "x": 204.0,
+        "y": 495.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 191.0
+      },
+      "title": "Decision",
+      "branches": [
+        {
+          "name": "yes",
+          "groupOp": "all",
+          "rules": [
+            {
+              "leftKey": "number",
+              "op": "gte",
+              "rightValue": 100
+            }
+          ]
+        },
+        {
+          "name": "no",
+          "groupOp": "all",
+          "rules": [
+            {
+              "leftKey": "number",
+              "op": "lt",
+              "rightValue": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e94f04c1-4f48-452c-845e-63ded97d1cbb",
+      "nodeType": "EndNode",
+      "position": {
+        "x": 24.0,
+        "y": 806.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "The End"
+    },
+    {
+      "id": "58aa76a5-3780-472d-adbc-6f6bee6ab919",
+      "nodeType": "ContextNode",
+      "position": {
+        "x": 384.0,
+        "y": 806.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 131.0
+      },
+      "title": "Context",
+      "actions": [
+        {
+          "op": "increment",
+          "path": "number",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "9224a84d-780c-4f73-b336-8ede0bc207a7",
+      "nodeType": "DefaultNode",
+      "position": {
+        "x": 384.0,
+        "y": 1057.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "only for show"
+    }
+  ],
+  "edges": [
+    {
+      "edgeType": "DefaultEdge",
+      "id": "98ac806e-e724-4f06-a235-f2fe17384b8c",
+      "from": "f979752c-c9f8-4f59-9e8d-c31129ad2b25",
+      "to": "bedd87b1-f2bc-4887-9946-30f0d12fb2bc"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "93c968a3-8aee-491a-a7ca-26cfda308f61",
+      "from": "bedd87b1-f2bc-4887-9946-30f0d12fb2bc",
+      "to": "1b18ebf5-58be-4d54-bdf5-6f220939194a"
+    },
+    {
+      "edgeType": "BranchEdge",
+      "id": "8083ba09-d3b7-43c2-af33-bbfd43c65993",
+      "from": "1b18ebf5-58be-4d54-bdf5-6f220939194a",
+      "to": "e94f04c1-4f48-452c-845e-63ded97d1cbb",
+      "fromPort": "yes"
+    },
+    {
+      "edgeType": "BranchEdge",
+      "id": "40d5b1cd-6922-4f63-9504-e5fae493c18f",
+      "from": "1b18ebf5-58be-4d54-bdf5-6f220939194a",
+      "to": "58aa76a5-3780-472d-adbc-6f6bee6ab919",
+      "fromPort": "no"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "bd8e64a8-538f-4966-9e29-23e2f0b3c33c",
+      "from": "58aa76a5-3780-472d-adbc-6f6bee6ab919",
+      "to": "9224a84d-780c-4f73-b336-8ede0bc207a7"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "62b5b095-6ac3-4532-8166-15ece031ff2a",
+      "from": "9224a84d-780c-4f73-b336-8ede0bc207a7",
+      "to": "1b18ebf5-58be-4d54-bdf5-6f220939194a"
+    }
+  ],
+  "meta": {
+    "name": "count_to_100",
+    "exportedAt": "2025-08-29T09:00:13.799933"
+  },
+  "testContexts": [
+    {
+      "id": "dafde610-9c35-4589-8895-7292116663c1",
+      "name": "default",
+      "json": "{}"
+    }
+  ]
+}

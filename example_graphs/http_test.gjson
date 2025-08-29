@@ -1,0 +1,79 @@
+{
+  "format": "graph.v1",
+  "version": 1,
+  "nodes": [
+    {
+      "id": "f20fd2f6-9824-4990-9f5d-9608f280cdbb",
+      "nodeType": "RootNode",
+      "position": {
+        "x": 24.0,
+        "y": 24.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "http_test"
+    },
+    {
+      "id": "1b361986-816d-4d13-9f0a-e52c9157b3d5",
+      "nodeType": "HttpNode",
+      "position": {
+        "x": 24.0,
+        "y": 244.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 130.0
+      },
+      "title": "HTTP",
+      "method": "get",
+      "url": "https://dummyjson.com/test",
+      "headers": {},
+      "body": "",
+      "sendJson": true,
+      "parseJsonResponse": true,
+      "savePath": "http.last",
+      "timeoutMs": 10000
+    },
+    {
+      "id": "aba32829-099f-4fcb-9620-427f85abaed5",
+      "nodeType": "EndNode",
+      "position": {
+        "x": 24.0,
+        "y": 494.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "The End"
+    }
+  ],
+  "edges": [
+    {
+      "edgeType": "DefaultEdge",
+      "id": "56ba1161-0345-46aa-964e-28bb117823be",
+      "from": "f20fd2f6-9824-4990-9f5d-9608f280cdbb",
+      "to": "1b361986-816d-4d13-9f0a-e52c9157b3d5"
+    },
+    {
+      "edgeType": "BranchEdge",
+      "id": "e8d2e7e5-6247-4a0b-aa8b-1c4e04576e0c",
+      "from": "1b361986-816d-4d13-9f0a-e52c9157b3d5",
+      "to": "aba32829-099f-4fcb-9620-427f85abaed5",
+      "fromPort": "success"
+    }
+  ],
+  "meta": {
+    "name": "http_test",
+    "exportedAt": "2025-08-29T09:52:26.291855"
+  },
+  "testContexts": [
+    {
+      "id": "230fd6b9-e5b6-4c37-9cfc-d1dbccdf73da",
+      "name": "default",
+      "json": "{\n}"
+    }
+  ]
+}

@@ -1,0 +1,271 @@
+{
+  "format": "graph.v1",
+  "version": 1,
+  "nodes": [
+    {
+      "id": "83fde90a-9a5f-47d8-a99d-e7e922bc48d5",
+      "nodeType": "RootNode",
+      "position": {
+        "x": 204.0,
+        "y": 24.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "Fibonacci"
+    },
+    {
+      "id": "297f63c0-0ff8-4aa2-a73d-0f88ba3bb91e",
+      "nodeType": "ContextNode",
+      "position": {
+        "x": 204.0,
+        "y": 244.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 165.0
+      },
+      "title": "Init",
+      "actions": [
+        {
+          "op": "setValue",
+          "path": "a",
+          "value": 0
+        },
+        {
+          "op": "setValue",
+          "path": "b",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "501dd399-b6ea-4791-a1f0-96a931c65379",
+      "nodeType": "MathNode",
+      "position": {
+        "x": 204.0,
+        "y": 529.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 150.0
+      },
+      "title": "Init i",
+      "expr": "n",
+      "outPath": "i",
+      "rounding": "none",
+      "precision": null
+    },
+    {
+      "id": "11b7dc4b-205d-453c-82c1-964c125b42b7",
+      "nodeType": "DecisionNode",
+      "position": {
+        "x": 204.0,
+        "y": 799.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 191.0
+      },
+      "title": "Loop?",
+      "branches": [
+        {
+          "name": "loop",
+          "groupOp": "all",
+          "rules": [
+            {
+              "leftKey": "i",
+              "op": "gt",
+              "rightValue": 0
+            }
+          ]
+        },
+        {
+          "name": "done",
+          "groupOp": "all",
+          "rules": [
+            {
+              "leftKey": "i",
+              "op": "lte",
+              "rightValue": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b8d0d972-9d80-4b57-8702-ef995a051161",
+      "nodeType": "MathNode",
+      "position": {
+        "x": 652.8435028525408,
+        "y": 407.532221584886
+      },
+      "size": {
+        "width": 200.0,
+        "height": 150.0
+      },
+      "title": "Math",
+      "expr": "a + b",
+      "outPath": "t",
+      "rounding": "none",
+      "precision": null
+    },
+    {
+      "id": "e27e1c45-d1cd-44a7-8b86-0dd5ec0f59e2",
+      "nodeType": "MathNode",
+      "position": {
+        "x": 1062.8460077967136,
+        "y": 769.4962844997792
+      },
+      "size": {
+        "width": 200.0,
+        "height": 150.0
+      },
+      "title": "Math",
+      "expr": "b",
+      "outPath": "a",
+      "rounding": "none",
+      "precision": null
+    },
+    {
+      "id": "84eaebb2-d45a-402d-bca3-5524d8427765",
+      "nodeType": "MathNode",
+      "position": {
+        "x": 895.2465491734379,
+        "y": 1129.690291505517
+      },
+      "size": {
+        "width": 200.0,
+        "height": 150.0
+      },
+      "title": "Math",
+      "expr": "t",
+      "outPath": "b",
+      "rounding": "none",
+      "precision": null
+    },
+    {
+      "id": "fc698929-70e9-460d-b72b-3a02dfa5f145",
+      "nodeType": "MathNode",
+      "position": {
+        "x": 530.6623385040629,
+        "y": 1120.2934709050694
+      },
+      "size": {
+        "width": 200.0,
+        "height": 150.0
+      },
+      "title": "Dec i",
+      "expr": "i -1",
+      "outPath": "i",
+      "rounding": "none",
+      "precision": null
+    },
+    {
+      "id": "35459263-70c0-465f-a03c-15d5e686f1c7",
+      "nodeType": "MathNode",
+      "position": {
+        "x": 24.0,
+        "y": 1110.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 150.0
+      },
+      "title": "Math",
+      "expr": "a",
+      "outPath": "result",
+      "rounding": "none",
+      "precision": null
+    },
+    {
+      "id": "5e2b3de3-d908-4511-9c99-be47eb64d3dd",
+      "nodeType": "EndNode",
+      "position": {
+        "x": 24.0,
+        "y": 1380.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "The End"
+    }
+  ],
+  "edges": [
+    {
+      "edgeType": "DefaultEdge",
+      "id": "9e82d96f-f49b-43f0-b6e0-af9f212b05f4",
+      "from": "83fde90a-9a5f-47d8-a99d-e7e922bc48d5",
+      "to": "297f63c0-0ff8-4aa2-a73d-0f88ba3bb91e"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "8ed7cf27-4645-4425-92a5-d89b0a7e564c",
+      "from": "297f63c0-0ff8-4aa2-a73d-0f88ba3bb91e",
+      "to": "501dd399-b6ea-4791-a1f0-96a931c65379"
+    },
+    {
+      "edgeType": "BranchEdge",
+      "id": "1f765114-2c40-47df-8396-8c84f18e90d5",
+      "from": "11b7dc4b-205d-453c-82c1-964c125b42b7",
+      "to": "35459263-70c0-465f-a03c-15d5e686f1c7",
+      "fromPort": "done"
+    },
+    {
+      "edgeType": "BranchEdge",
+      "id": "230e8478-f54e-464d-94f6-4ce41e3e2a16",
+      "from": "11b7dc4b-205d-453c-82c1-964c125b42b7",
+      "to": "b8d0d972-9d80-4b57-8702-ef995a051161",
+      "fromPort": "loop"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "6a388654-cc3e-41d4-96c4-484c2ba1fbef",
+      "from": "84eaebb2-d45a-402d-bca3-5524d8427765",
+      "to": "fc698929-70e9-460d-b72b-3a02dfa5f145"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "86775505-382a-499e-afca-a45e050abd34",
+      "from": "fc698929-70e9-460d-b72b-3a02dfa5f145",
+      "to": "11b7dc4b-205d-453c-82c1-964c125b42b7"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "fd507466-6c0b-4482-a44d-334304acd354",
+      "from": "501dd399-b6ea-4791-a1f0-96a931c65379",
+      "to": "11b7dc4b-205d-453c-82c1-964c125b42b7"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "b4e968bb-03ce-4c88-9907-23d84c4e651d",
+      "from": "b8d0d972-9d80-4b57-8702-ef995a051161",
+      "to": "e27e1c45-d1cd-44a7-8b86-0dd5ec0f59e2"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "b437bf67-ddab-4736-9809-4d5f9d2c9043",
+      "from": "e27e1c45-d1cd-44a7-8b86-0dd5ec0f59e2",
+      "to": "84eaebb2-d45a-402d-bca3-5524d8427765"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "ffcd725f-111d-4446-9659-df10c90d3a27",
+      "from": "35459263-70c0-465f-a03c-15d5e686f1c7",
+      "to": "5e2b3de3-d908-4511-9c99-be47eb64d3dd"
+    }
+  ],
+  "meta": {
+    "name": "Fibonacci",
+    "exportedAt": "2025-08-29T10:13:42.972789"
+  },
+  "testContexts": [
+    {
+      "id": "2d8d8aac-74fe-4864-af80-06c16f1f89e8",
+      "name": "default",
+      "json": "{\n  \"n\": 10\n}"
+    }
+  ]
+}
