@@ -88,6 +88,7 @@ class _GraphEditorState extends State<GraphEditor> {
                         MenuItemButton(child: const Text('Neuer MathNode'), onPressed: () => createNode("MathNode")),
                         MenuItemButton(child: const Text('Neuer HttpNode'), onPressed: () => createNode("HttpNode")),
                         MenuItemButton(child: const Text('Neuer MapperNode'), onPressed: () => createNode("MapperNode")),
+                        MenuItemButton(child: const Text('Neuer TemplateNode'), onPressed: () => createNode("TemplateNode")),
                       ],
                       child: const Text('Nodes'),
                     ),

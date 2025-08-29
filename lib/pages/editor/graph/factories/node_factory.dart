@@ -89,10 +89,7 @@ Map<String, NodeFactory> defaultNodeDecoders() {
     },
     'HttpNode': (Map<String, dynamic> m) {
       final String title = (m['title'] as String?) ?? 'HTTP';
-      final HttpMethod method = HttpMethod.values.firstWhere(
-            (HttpMethod v) => v.name == (m['method'] as String? ?? 'get'),
-        orElse: () => HttpMethod.get,
-      );
+      final HttpMethod method = HttpMethod.values.firstWhere((HttpMethod v) => v.name == (m['method'] as String? ?? 'get'), orElse: () => HttpMethod.get);
       final String url = (m['url'] as String?) ?? 'https://api.example.com';
       final Map<String, String> headers = ((m['headers'] as Map?)?.cast<String, String>()) ?? <String, String>{};
       final String? body = m['body'] as String?;
@@ -115,12 +112,16 @@ Map<String, NodeFactory> defaultNodeDecoders() {
     },
     'MapperNode': (Map<String, dynamic> m) {
       final String title = (m['title'] as String?)?.trim() ?? 'Map Context';
-      final List<MapperRule> rules = ((m['rules'] as List?) ?? const <dynamic>[])
-          .cast<Map<String, dynamic>>()
-          .map(MapperRule.fromMap)
-          .toList();
+      final List<MapperRule> rules = ((m['rules'] as List?) ?? const <dynamic>[]).cast<Map<String, dynamic>>().map(MapperRule.fromMap).toList();
       final MapperNode n = MapperNode(title: title, rules: rules);
       return n;
+    },
+    'TemplateNode': (Map<String, dynamic> m) {
+      final String title = (m['title'] as String?) ?? 'Template';
+      final String tpl = (m['template'] as String?) ?? '';
+      final String outPath = (m['outPath'] as String?) ?? 'result';
+      final bool nullAsEmpty = (m['nullAsEmpty'] as bool?) ?? true;
+      return TemplateNode(title: title, template: tpl, outPath: outPath, nullAsEmpty: nullAsEmpty);
     },
   };
 }
@@ -222,10 +223,7 @@ Map<String, NodeTypeDescriptor> defaultNodeRegistry({Map<String, NodeFactory>? f
       buildSection: (BuildContext context, Map<String, dynamic> data) => HttpNodeForm(data: data),
       buildNode: (Map<String, dynamic> data) => HttpNode(
         title: (data['title'] as String?) ?? 'HTTP',
-        method: HttpMethod.values.firstWhere(
-              (HttpMethod v) => v.name == (data['method'] as String? ?? 'get'),
-          orElse: () => HttpMethod.get,
-        ),
+        method: HttpMethod.values.firstWhere((HttpMethod v) => v.name == (data['method'] as String? ?? 'get'), orElse: () => HttpMethod.get),
         urlTmpl: (data['url'] as String?) ?? 'https://api.example.com',
         headers: ((data['headers'] as Map?)?.cast<String, String>()) ?? <String, String>{},
         bodyTmpl: data['body'] as String?,
@@ -238,10 +236,7 @@ Map<String, NodeTypeDescriptor> defaultNodeRegistry({Map<String, NodeFactory>? f
         if (node is HttpNode) {
           node
             ..title = (data['title'] as String?) ?? node.title
-            ..method = HttpMethod.values.firstWhere(
-                  (HttpMethod v) => v.name == (data['method'] as String? ?? node.method.name),
-              orElse: () => node.method,
-            )
+            ..method = HttpMethod.values.firstWhere((HttpMethod v) => v.name == (data['method'] as String? ?? node.method.name), orElse: () => node.method)
             ..urlTmpl = (data['url'] as String?) ?? node.urlTmpl
             ..headers = ((data['headers'] as Map?)?.cast<String, String>()) ?? node.headers
             ..bodyTmpl = data['body'] as String?
@@ -258,19 +253,33 @@ Map<String, NodeTypeDescriptor> defaultNodeRegistry({Map<String, NodeFactory>? f
       buildSection: (BuildContext context, Map<String, dynamic> data) => MapperNodeForm(data: data),
       buildNode: (Map<String, dynamic> data) {
         final String title = (data['title'] as String?)?.trim() ?? 'Map Context';
-        final List<MapperRule> rules = ((data['rules'] as List?) ?? const <dynamic>[])
-            .cast<Map<String, dynamic>>()
-            .map(MapperRule.fromMap)
-            .toList();
+        final List<MapperRule> rules = ((data['rules'] as List?) ?? const <dynamic>[]).cast<Map<String, dynamic>>().map(MapperRule.fromMap).toList();
         return MapperNode(title: title, rules: rules);
       },
       applyToNode: (AbstractNode node, Map<String, dynamic> data) {
         if (node is MapperNode) {
           node.title = (data['title'] as String?)?.trim() ?? 'Map Context';
-          node.rules = ((data['rules'] as List?) ?? const <dynamic>[])
-              .cast<Map<String, dynamic>>()
-              .map(MapperRule.fromMap)
-              .toList();
+          node.rules = ((data['rules'] as List?) ?? const <dynamic>[]).cast<Map<String, dynamic>>().map(MapperRule.fromMap).toList();
+        }
+      },
+    ),
+    'TemplateNode': NodeTypeDescriptor(
+      type: 'TemplateNode',
+      displayName: 'Template Node',
+      buildSection: (BuildContext context, Map<String, dynamic> data) => TemplateNodeForm(data: data),
+      buildNode: (Map<String, dynamic> data) {
+        final String title = (data['title'] as String?)?.trim() ?? 'Template';
+        final String outPath = (data['outPath'] as String?)?.trim() ?? 'result';
+        final String tpl = (data['template'] as String?) ?? '';
+        final bool nullAsEmpty = (data['nullAsEmpty'] as bool?) ?? true;
+        return TemplateNode(title: title, template: tpl, outPath: outPath, nullAsEmpty: nullAsEmpty);
+      },
+      applyToNode: (AbstractNode node, Map<String, dynamic> data) {
+        if (node is TemplateNode) {
+          node.title = (data['title'] as String?)?.trim() ?? 'Template';
+          node.outPath = (data['outPath'] as String?)?.trim() ?? 'result';
+          node.template = (data['template'] as String?) ?? '';
+          node.nullAsEmpty = (data['nullAsEmpty'] as bool?) ?? true;
         }
       },
     ),

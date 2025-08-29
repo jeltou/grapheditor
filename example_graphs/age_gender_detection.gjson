@@ -1,0 +1,254 @@
+{
+  "format": "graph.v1",
+  "version": 1,
+  "nodes": [
+    {
+      "id": "b04e6670-c9b4-42a7-a32c-f0c1e94b9312",
+      "nodeType": "RootNode",
+      "position": {
+        "x": 204.0,
+        "y": 24.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "age_gender_detection"
+    },
+    {
+      "id": "b1179485-7dd0-45d2-8103-cd39ac307e51",
+      "nodeType": "HttpNode",
+      "position": {
+        "x": 204.0,
+        "y": 244.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 130.0
+      },
+      "title": "HTTP",
+      "method": "get",
+      "url": "https://api.genderize.io/?name=${name}",
+      "headers": {},
+      "body": "",
+      "sendJson": true,
+      "parseJsonResponse": true,
+      "savePath": "api_result_gender",
+      "timeoutMs": 10000
+    },
+    {
+      "id": "978ada00-226b-49dd-b332-88f87b4837e6",
+      "nodeType": "HttpNode",
+      "position": {
+        "x": 204.0,
+        "y": 494.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 130.0
+      },
+      "title": "HTTP",
+      "method": "get",
+      "url": "https://api.agify.io?name=${name}",
+      "headers": {},
+      "body": "",
+      "sendJson": true,
+      "parseJsonResponse": true,
+      "savePath": "api_result_age",
+      "timeoutMs": 10000
+    },
+    {
+      "id": "e180d1d3-dfe9-4320-9e1a-279ae834c4ea",
+      "nodeType": "EndNode",
+      "position": {
+        "x": 24.0,
+        "y": 1017.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "Error"
+    },
+    {
+      "id": "6d3308cc-50c0-4f75-b0fa-180326dcc865",
+      "nodeType": "ContextNode",
+      "position": {
+        "x": 24.0,
+        "y": 744.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 131.0
+      },
+      "title": "Context",
+      "actions": [
+        {
+          "op": "setValue",
+          "path": "is_error",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "de79d81f-b8e7-4792-936a-2032e74b7357",
+      "nodeType": "MapperNode",
+      "position": {
+        "x": 384.0,
+        "y": 744.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 153.0
+      },
+      "title": "Map Context",
+      "rules": [
+        {
+          "from": "api_result_gender.json.gender",
+          "to": "gender",
+          "move": false,
+          "overwrite": true,
+          "skipIfNull": true
+        },
+        {
+          "from": "api_result_age.json.age",
+          "to": "age",
+          "move": false,
+          "overwrite": true,
+          "skipIfNull": true
+        }
+      ]
+    },
+    {
+      "id": "5e9fb5b3-ae63-40f7-abee-08aacba670c6",
+      "nodeType": "ContextNode",
+      "position": {
+        "x": 384.0,
+        "y": 1017.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 165.0
+      },
+      "title": "clean up",
+      "actions": [
+        {
+          "op": "removeKey",
+          "path": "api_result_age",
+          "value": null
+        },
+        {
+          "op": "removeKey",
+          "path": "api_result_gender",
+          "value": null
+        }
+      ]
+    },
+    {
+      "id": "6bd67618-65d6-443b-b7f0-d941a6a607a4",
+      "nodeType": "EndNode",
+      "position": {
+        "x": 384.0,
+        "y": 1522.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "label": "Success"
+    },
+    {
+      "id": "89e27289-cb26-4885-979d-8beafbe01f8b",
+      "nodeType": "TemplateNode",
+      "position": {
+        "x": 384.0,
+        "y": 1302.0
+      },
+      "size": {
+        "width": 200.0,
+        "height": 100.0
+      },
+      "title": "Format",
+      "template": "Hello {{name}}, \nYou are {{gender}} and may be {{age}} years old. (Probably not...)",
+      "outPath": "result",
+      "nullAsEmpty": true
+    }
+  ],
+  "edges": [
+    {
+      "edgeType": "DefaultEdge",
+      "id": "343d84ba-bfd2-48e1-9fae-f245a44a4e06",
+      "from": "b04e6670-c9b4-42a7-a32c-f0c1e94b9312",
+      "to": "b1179485-7dd0-45d2-8103-cd39ac307e51"
+    },
+    {
+      "edgeType": "BranchEdge",
+      "id": "1d229ffc-85d0-4282-b83d-5eadb19c7f6e",
+      "from": "b1179485-7dd0-45d2-8103-cd39ac307e51",
+      "to": "978ada00-226b-49dd-b332-88f87b4837e6",
+      "fromPort": "success"
+    },
+    {
+      "edgeType": "BranchEdge",
+      "id": "612b6431-855e-47fb-acfb-c4cf151c8025",
+      "from": "b1179485-7dd0-45d2-8103-cd39ac307e51",
+      "to": "6d3308cc-50c0-4f75-b0fa-180326dcc865",
+      "fromPort": "error"
+    },
+    {
+      "edgeType": "BranchEdge",
+      "id": "8b9e60bc-cd53-4ab9-9e43-4e6aeee1021d",
+      "from": "978ada00-226b-49dd-b332-88f87b4837e6",
+      "to": "6d3308cc-50c0-4f75-b0fa-180326dcc865",
+      "fromPort": "error"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "6fd2681b-2d3d-415d-99b3-babe8ac07683",
+      "from": "6d3308cc-50c0-4f75-b0fa-180326dcc865",
+      "to": "e180d1d3-dfe9-4320-9e1a-279ae834c4ea"
+    },
+    {
+      "edgeType": "BranchEdge",
+      "id": "e7484a1c-f0a5-4c43-9a56-1a3e0599daed",
+      "from": "978ada00-226b-49dd-b332-88f87b4837e6",
+      "to": "de79d81f-b8e7-4792-936a-2032e74b7357",
+      "fromPort": "success"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "1ea63048-54fb-4fa3-9f2e-0844984d84a7",
+      "from": "de79d81f-b8e7-4792-936a-2032e74b7357",
+      "to": "5e9fb5b3-ae63-40f7-abee-08aacba670c6"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "2d622c83-df20-400f-ba41-0f4f40f47eeb",
+      "from": "5e9fb5b3-ae63-40f7-abee-08aacba670c6",
+      "to": "89e27289-cb26-4885-979d-8beafbe01f8b"
+    },
+    {
+      "edgeType": "DefaultEdge",
+      "id": "118ee288-a95d-4418-ba76-56648fa04637",
+      "from": "89e27289-cb26-4885-979d-8beafbe01f8b",
+      "to": "6bd67618-65d6-443b-b7f0-d941a6a607a4"
+    }
+  ],
+  "meta": {
+    "name": "age_gender_detection.gjson",
+    "filepath": "/Users/jeltoubben/Documents/age_gender_detection.gjson",
+    "exportedAt": "2025-08-29T15:41:20.523726"
+  },
+  "testContexts": [
+    {
+      "id": "6a19db6e-1da3-49d2-9a90-103d08402750",
+      "name": "Female_test",
+      "json": "{\n  \"name\": \"Hannelore\"\n}"
+    },
+    {
+      "id": "eb642705-bc78-43aa-ad70-4c2ef6c71dc0",
+      "name": "Male_Test",
+      "json": "{\n  \"name\": \"Hans-Dieter\"\n}"
+    }
+  ]
+}

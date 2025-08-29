@@ -32,6 +32,7 @@ part 'nodes/context_node.dart';
 part 'nodes/math_node.dart';
 part 'nodes/http_node.dart';
 part 'nodes/mapper_node.dart';
+part 'nodes/template_node.dart';
 
 // Shared
 part 'shared/graph_object_shared.dart';
@@ -69,6 +70,7 @@ part 'forms/context_node_form.dart';
 part 'forms/math_node_form.dart';
 part 'forms/http_node_form.dart';
 part 'forms/mapper_node_form.dart';
+part 'forms/template_node_form.dart';
 
 // GraphRuntime
 part 'runtime/graph_runtime.dart';
