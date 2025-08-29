@@ -87,6 +87,32 @@ Map<String, NodeFactory> defaultNodeDecoders() {
       final int? prec = (m['precision'] as num?)?.toInt();
       return MathNode(title: title, expr: expr, outPath: out, rounding: round, precision: prec);
     },
+    'HttpNode': (Map<String, dynamic> m) {
+      final String title = (m['title'] as String?) ?? 'HTTP';
+      final HttpMethod method = HttpMethod.values.firstWhere(
+            (HttpMethod v) => v.name == (m['method'] as String? ?? 'get'),
+        orElse: () => HttpMethod.get,
+      );
+      final String url = (m['url'] as String?) ?? 'https://api.example.com';
+      final Map<String, String> headers = ((m['headers'] as Map?)?.cast<String, String>()) ?? <String, String>{};
+      final String? body = m['body'] as String?;
+      final bool sendJson = (m['sendJson'] as bool?) ?? true;
+      final bool parseJson = (m['parseJsonResponse'] as bool?) ?? true;
+      final String savePath = (m['savePath'] as String?) ?? 'http.last';
+      final int timeoutMs = (m['timeoutMs'] as num?)?.toInt() ?? 10000;
+
+      return HttpNode(
+        title: title,
+        method: method,
+        urlTmpl: url,
+        headers: headers,
+        bodyTmpl: body,
+        sendJson: sendJson,
+        parseJsonResponse: parseJson,
+        savePath: savePath,
+        timeoutMs: timeoutMs,
+      );
+    },
     'MapperNode': (Map<String, dynamic> m) {
       final String title = (m['title'] as String?)?.trim() ?? 'Map Context';
       final List<MapperRule> rules = ((m['rules'] as List?) ?? const <dynamic>[])
@@ -94,9 +120,6 @@ Map<String, NodeFactory> defaultNodeDecoders() {
           .map(MapperRule.fromMap)
           .toList();
       final MapperNode n = MapperNode(title: title, rules: rules);
-
-      // Position/Size already handled by your JsonGraphConverter’s _buildNodeFromMap,
-      // falls back to node.setPosition(...) and width/height assignment.
       return n;
     },
   };

@@ -26,6 +26,7 @@ class HttpNode extends AbstractNode implements ExecutableNode, AsyncExecutableNo
   @override
   String get nodeType => 'HttpNode';
 
+  @override
   double get height => 130;
 
   HttpNode({
