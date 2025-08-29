@@ -72,7 +72,9 @@ class _GraphRuntimeDialogState extends State<GraphRuntimeDialog> {
 
   TextStyle get _mono => const TextStyle(fontFamily: 'monospace', fontSize: 13, height: 1.3);
 
-  String _exampleContextJson() => const JsonEncoder.withIndent('  ').convert(<String, Object>{"value": 1});
+  String _exampleContextJson() {
+    return widget.graph.testsContexts.isNotEmpty ? widget.graph.testsContexts.values.toList().first.json : JsonEncoder.withIndent('  ').convert({"value": "1"});
+  }
 
   void _appendStdout(String line) {
     _stdoutBuffer.add(line);

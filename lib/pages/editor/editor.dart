@@ -45,8 +45,12 @@ class _GraphEditorState extends State<GraphEditor> {
     context.read<GraphEditorBloc>().add(GraphEditorOpenGraph());
   }
 
-  void createNode(String nodeTyoe) {
-    nodeCreator.open(context, initialType: nodeTyoe);
+  void createNode(String nodeType) async {
+    AbstractNode? node = await nodeCreator.open(context, initialType: nodeType);
+    if (node != null) {
+      node!.setPosition(Offset(50, 50));
+      context.read<GraphEditorBloc>().add(GraphEditorAddNode(node));
+    }
   }
 
   void openHelp() {
@@ -75,27 +79,34 @@ class _GraphEditorState extends State<GraphEditor> {
                       child: const Text('File'),
                     ),
                     SubmenuButton(
-                      menuChildren: <Widget>[MenuItemButton(child: const Text('Neuer DefaultNode'), onPressed: () => createNode("DefaultNode"))],
+                      menuChildren: <Widget>[
+                        MenuItemButton(child: const Text('Neuer DefaultNode'), onPressed: () => createNode("DefaultNode")),
+                        MenuItemButton(child: const Text('Neuer RootNode'), onPressed: () => createNode("RootNode")),
+                        MenuItemButton(child: const Text('Neuer EndNode'), onPressed: () => createNode("EndNode")),
+                        MenuItemButton(child: const Text('Neuer DecisionNode'), onPressed: () => createNode("DecisionNode")),
+                        MenuItemButton(child: const Text('Neuer ContextNode'), onPressed: () => createNode("ContextNode")),
+                        MenuItemButton(child: const Text('Neuer MathNode'), onPressed: () => createNode("MathNode")),
+                        MenuItemButton(child: const Text('Neuer HttpNode'), onPressed: () => createNode("HttpNode")),
+                        MenuItemButton(child: const Text('Neuer MapperNode'), onPressed: () => createNode("MapperNode")),
+                      ],
                       child: const Text('Nodes'),
                     ),
                     SubmenuButton(
-                      menuChildren: <Widget>[MenuItemButton(child: const Text('Ausführen'), onPressed: openGraphRuntimeDialog)],
+                      menuChildren: <Widget>[MenuItemButton(onPressed: openGraphRuntimeDialog, child: const Text('Ausführen'))],
                       child: const Text('Graph'),
                     ),
                     SubmenuButton(
                       menuChildren: <Widget>[
-                        MenuItemButton(onPressed: () {}, child: const Text('Undo')),
-                        MenuItemButton(onPressed: () {}, child: const Text('Redo')),
+                        MenuItemButton(
+                          child: const Text('Tree Layout anwenden (top -> down)'),
+                          onPressed: () => applyLayout(TreeLayout(orientation: TreeOrientation.topDown)),
+                        ),
+                        MenuItemButton(
+                          child: const Text('Tree Layout anwenden (left -> right)'),
+                          onPressed: () => applyLayout(TreeLayout(orientation: TreeOrientation.leftRight)),
+                        ),
                       ],
-                      child: const Text('Edit'),
-                    ),
-                    SubmenuButton(
-                      menuChildren: <Widget>[MenuItemButton(child: const Text('Tree Layout anwenden'), onPressed: () => applyLayout(TreeLayout()))],
                       child: const Text('Layout'),
-                    ),
-                    SubmenuButton(
-                      menuChildren: <Widget>[MenuItemButton(child: const Text('Open Preview'))],
-                      child: const Text('View'),
                     ),
                     SubmenuButton(
                       menuChildren: <Widget>[MenuItemButton(onPressed: () => openHelp(), child: const Text('Open Help'))],
