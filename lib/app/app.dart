@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fores/fores.dart';
 
-import '../blocs/graph_editor/graph_editor_bloc.dart';
+import '../pages/editor/blocs/graph_editor/graph_editor_bloc.dart';
 import '../routes.dart';
 
 class App extends StatefulWidget {

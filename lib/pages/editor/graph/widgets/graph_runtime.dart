@@ -234,16 +234,18 @@ class _GraphRuntimeDialogState extends State<GraphRuntimeDialog> {
         'stepsTaken': res.stepsTaken,
         'executionTime': res.executionTime,
         'context': res.context,
-        'visitedNodes': <Object>[
-          for (final AbstractNode n in res.visitedNodes) <String, Object?>{'id': n.id, 'type': n.runtimeType.toString()},
-        ],
-        'traversedEdges': <Object>[
-          for (final AbstractEdge e in res.traversedEdges)
-            if (e is BranchEdge)
-              <String, Object?>{'id': e.id, 'type': 'BranchEdge', 'from': e.from.id, 'to': e.to.id, 'port': e.fromPort}
-            else
-              <String, Object?>{'id': e.id, 'type': e.runtimeType.toString(), 'from': e.from.id, 'to': e.to.id},
-        ],
+
+        // deactivatet through perfomance issues
+        // 'visitedNodes': <Object>[
+        //   for (final AbstractNode n in res.visitedNodes) <String, Object?>{'id': n.id, 'type': n.runtimeType.toString()},
+        // ],
+        // 'traversedEdges': <Object>[
+        //   for (final AbstractEdge e in res.traversedEdges)
+        //     if (e is BranchEdge)
+        //       <String, Object?>{'id': e.id, 'type': 'BranchEdge', 'from': e.from.id, 'to': e.to.id, 'port': e.fromPort}
+        //     else
+        //       <String, Object?>{'id': e.id, 'type': e.runtimeType.toString(), 'from': e.from.id, 'to': e.to.id},
+        // ],
       };
 
       setState(() => _outCtrl.text = _prettyJson(out));

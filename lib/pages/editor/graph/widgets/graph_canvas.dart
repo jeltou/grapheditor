@@ -13,13 +13,11 @@ class GraphCanvas extends StatefulWidget {
 }
 
 class _GraphCanvasState extends State<GraphCanvas> {
-
   NodeCreator nodeCreator = NodeCreator();
   final TransformationController _tc = TransformationController();
   final GlobalKey _viewerKey = GlobalKey();
   final GlobalKey _sceneKey = GlobalKey();
   final FocusNode _focusNode = FocusNode();
-
 
   static const double _kCanvasSize = 200000.0;
   static const double _kCullPadding = 200.0;
@@ -28,13 +26,11 @@ class _GraphCanvasState extends State<GraphCanvas> {
   static const double _kWheelZoomSpeed = 0.00005;
   static const bool _kCtrlWheelOnly = false;
 
-
   bool _isConnecting = false;
   AbstractNode? _connFrom;
   HandlePos? _connFromSide;
   Offset? _connFromAnchorWorld;
   Offset? _connCursorWorld;
-
 
   AbstractEdge? _hoverEdge;
   final Set<AbstractEdge> _selectedEdges = <AbstractEdge>{};
@@ -53,7 +49,6 @@ class _GraphCanvasState extends State<GraphCanvas> {
     _focusNode.dispose();
     super.dispose();
   }
-
 
   void _onTransformChanged() {
     if (!mounted) return;
@@ -124,8 +119,6 @@ class _GraphCanvasState extends State<GraphCanvas> {
     }
   }
 
-
-
   void _startConnection(AbstractNode from, HandlePos side) {
     _isConnecting = true;
     _connFrom = from;
@@ -161,8 +154,8 @@ class _GraphCanvasState extends State<GraphCanvas> {
     }
 
     if (target != null) {
-      if (_connFrom! is DecisionNode) {
-        final String? port = await _chooseBranchPort(context, _connFrom! as DecisionNode, target.position);
+      if (_connFrom! is ChoosePortNode) {
+        final String? port = await _chooseBranchPort(context, _connFrom! as ChoosePortNode, target.position);
         if (port != null) {
           context.read<GraphEditorBloc>().add(GraphEditorAddEdge(BranchEdge(_connFrom!, target, fromPort: port)));
         }
@@ -197,9 +190,9 @@ class _GraphCanvasState extends State<GraphCanvas> {
     }
   }
 
-  Future<String?> _chooseBranchPort(BuildContext ctx, DecisionNode node, Offset menuGlobalPos) {
+  Future<String?> _chooseBranchPort(BuildContext ctx, ChoosePortNode node, Offset menuGlobalPos) {
     final List<PopupMenuEntry<String>> items = <PopupMenuEntry<String>>[
-      for (final DecisionBranch b in node.branches) PopupMenuItem<String>(value: b.name, child: Text('Route: ${b.name}')),
+      for (String port in node.getPorts()) PopupMenuItem<String>(value: port, child: Text('Route: $port')),
     ];
     return showMenu<String>(
       context: ctx,
@@ -207,8 +200,6 @@ class _GraphCanvasState extends State<GraphCanvas> {
       items: items,
     );
   }
-
-
 
   Offset _anchorOnRect(Rect rect, Offset toward) {
     final double cx = rect.center.dx, cy = rect.center.dy;
@@ -309,7 +300,6 @@ class _GraphCanvasState extends State<GraphCanvas> {
     _hoverEdge = null;
   }
 
-
   void _toggleNodeSelection(AbstractNode n, {required bool multi}) {
     setState(() {
       if (!multi) _selectedNodes.clear();
@@ -334,8 +324,6 @@ class _GraphCanvasState extends State<GraphCanvas> {
       _selectedNodes.remove(n);
     }
   }
-
-
 
   List<Widget> _buildPortHandles(AbstractNode node) {
     const double radius = 7.0;
@@ -371,8 +359,6 @@ class _GraphCanvasState extends State<GraphCanvas> {
 
     return <Widget>[makeHandle(HandlePos.top, top), makeHandle(HandlePos.right, right), makeHandle(HandlePos.bottom, bottom), makeHandle(HandlePos.left, left)];
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -449,7 +435,6 @@ class _GraphCanvasState extends State<GraphCanvas> {
                 height: _kCanvasSize,
 
                 child: GestureDetector(
-
                   behavior: HitTestBehavior.translucent,
                   onSecondaryTapDown: (TapDownDetails d) async {
                     final Offset global = d.globalPosition;
@@ -465,7 +450,6 @@ class _GraphCanvasState extends State<GraphCanvas> {
                   },
                   child: Stack(
                     children: <Widget>[
-
                       EdgeRenderer(
                         edges: visEdges,
                         color: edgeColor,
@@ -477,11 +461,9 @@ class _GraphCanvasState extends State<GraphCanvas> {
                         highlightSelected: selectedColor,
                       ),
 
-
                       Positioned.fill(
                         child: CustomPaint(painter: GridPainter(controller: _tc)),
                       ),
-
 
                       for (final AbstractNode node in visNodeSet)
                         NodeWrapper(
@@ -510,7 +492,6 @@ class _GraphCanvasState extends State<GraphCanvas> {
                         ),
 
                       for (final AbstractNode node in visNodeSet) ..._buildPortHandles(node),
-
 
                       if (_isConnecting && _connFromAnchorWorld != null && _connCursorWorld != null)
                         Positioned.fill(

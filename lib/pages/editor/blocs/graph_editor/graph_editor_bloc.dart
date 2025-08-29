@@ -7,7 +7,7 @@ import 'package:fores/cbloc/cbloc.dart';
 import 'package:grapheditor/models/tab_data.dart';
 import 'package:meta/meta.dart';
 
-import '../../cons.dart';
+import '../../../../cons.dart';
 import '../../graph/graph.dart';
 
 part 'graph_editor_event.dart';

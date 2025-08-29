@@ -1,6 +1,6 @@
 part of '../graph.dart';
 
-class DecisionNode extends AbstractNode implements ExecutableNode {
+class DecisionNode extends AbstractNode implements ExecutableNode, ChoosePortNode {
   String title;
   List<DecisionBranch> branches;
 
@@ -171,6 +171,12 @@ class DecisionNode extends AbstractNode implements ExecutableNode {
       if (_evalBranch(b, ctx)) return b.name;
     }
     return null;
+  }
+
+
+  @override
+  List<String> getPorts() {
+    return branches.map((b) => b.name).toList();
   }
 
   @override

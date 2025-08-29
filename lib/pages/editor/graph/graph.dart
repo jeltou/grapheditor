@@ -6,7 +6,8 @@ import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:fores/fores.dart';
-import 'package:grapheditor/blocs/graph_editor/graph_editor_bloc.dart';
+import 'package:grapheditor/pages/editor/blocs/graph_editor/graph_editor_bloc.dart';
+import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -15,14 +16,16 @@ import 'package:vector_math/vector_math_64.dart' hide Colors;
 // Edges
 part 'edges/abstract_edge.dart';
 
-part '../graph/edges/default_edge.dart';
+part 'edges/default_edge.dart';
 
-part '../graph/edges/branch_edge.dart';
+part 'edges/branch_edge.dart';
 
 // Nodes
 part 'nodes/abstract_node.dart';
 
 part 'nodes/executable_node.dart';
+part 'nodes/async_executable_node.dart';
+part 'nodes/choose_port_node.dart';
 
 part 'nodes/abstract_label_node.dart';
 
@@ -36,12 +39,14 @@ part 'nodes/decision_node.dart';
 
 part 'nodes/context_node.dart';
 
+part 'nodes/math_node.dart';
+
+part 'nodes/http_node.dart';
+
 // Shared
 part 'shared/graph_object_shared.dart';
 
 part 'shared/utils.dart';
-
-part 'shared/node_registry.dart';
 
 part 'shared/decision_branch.dart';
 
@@ -89,6 +94,9 @@ part 'forms/label_node_form.dart';
 part 'forms/descision_node_form.dart';
 
 part 'forms/context_node_form.dart';
+
+part 'forms/math_node_form.dart';
+part 'forms/http_node_form.dart';
 
 // GraphRuntime
 part 'runtime/graph_runtime.dart';

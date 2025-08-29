@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fores/fores.dart';
-import 'package:grapheditor/blocs/graph_editor/graph_editor_bloc.dart';
-import 'package:grapheditor/graph/graph.dart';
+import 'package:grapheditor/pages/editor/blocs/graph_editor/graph_editor_bloc.dart';
+import 'package:grapheditor/pages/editor/graph/graph.dart';
 
-import '../../cons.dart';
-import '../../widgets/widgets.dart';
+import '../../../cons.dart';
+import '../../../widgets/widgets.dart';
+import '../help/help.dart';
 
 class GraphEditor extends StatefulWidget {
   const GraphEditor({super.key});
@@ -14,6 +15,7 @@ class GraphEditor extends StatefulWidget {
 }
 
 class _GraphEditorState extends State<GraphEditor> {
+  NodeCreator nodeCreator = NodeCreator();
   Graph? currentGraph;
 
   @override
@@ -43,6 +45,14 @@ class _GraphEditorState extends State<GraphEditor> {
     context.read<GraphEditorBloc>().add(GraphEditorOpenGraph());
   }
 
+  void createNode(String nodeTyoe) {
+    nodeCreator.open(context, initialType: nodeTyoe);
+  }
+
+  void openHelp() {
+    showHelpDialog(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,12 +75,7 @@ class _GraphEditorState extends State<GraphEditor> {
                       child: const Text('File'),
                     ),
                     SubmenuButton(
-                      menuChildren: <Widget>[
-                        MenuItemButton(
-                          child: const Text('Neuer DefaultNode'),
-                          onPressed: () => addNewNode(DefaultNode(label: "Platzhalter")),
-                        ),
-                      ],
+                      menuChildren: <Widget>[MenuItemButton(child: const Text('Neuer DefaultNode'), onPressed: () => createNode("DefaultNode"))],
                       child: const Text('Nodes'),
                     ),
                     SubmenuButton(
@@ -91,6 +96,10 @@ class _GraphEditorState extends State<GraphEditor> {
                     SubmenuButton(
                       menuChildren: <Widget>[MenuItemButton(child: const Text('Open Preview'))],
                       child: const Text('View'),
+                    ),
+                    SubmenuButton(
+                      menuChildren: <Widget>[MenuItemButton(onPressed: () => openHelp(), child: const Text('Open Help'))],
+                      child: const Text('Help'),
                     ),
                   ],
                 ),
