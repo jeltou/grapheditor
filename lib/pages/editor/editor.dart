@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' hide AbstractNode;
 import 'package:flutter/material.dart';
 import 'package:fores/fores.dart';
 import 'package:grapheditor/pages/editor/blocs/graph_editor/graph_editor_bloc.dart';
@@ -73,8 +74,8 @@ class _GraphEditorState extends State<GraphEditor> {
                       menuChildren: <Widget>[
                         MenuItemButton(onPressed: () => createNewGraph(context), child: const Text('Neuer Graph')),
                         MenuItemButton(onPressed: () => openGraph(), child: const Text('Graph öffnen')),
-                        MenuItemButton(onPressed: currentGraph != null ? () => saveGraph(false) : null, child: const Text('Speichern')),
-                        MenuItemButton(onPressed: currentGraph != null ? () => saveGraph(true) : null, child: const Text('Speichern unter')),
+                        MenuItemButton(onPressed: currentGraph != null  ? () => saveGraph(false) : null, child: const Text('Speichern')),
+                        MenuItemButton(onPressed: currentGraph != null && !kIsWeb ? () => saveGraph(true) : null, child: const Text('Speichern unter')),
                       ],
                       child: const Text('File'),
                     ),

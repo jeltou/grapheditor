@@ -1,7 +1,8 @@
+import 'dart:convert';
 import 'dart:io' as io;
-
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart' hide AbstractNode;
 import 'package:fores/blocs/navigation/navigation_nuntius.dart';
 import 'package:fores/cbloc/cbloc.dart';
 import 'package:grapheditor/models/tab_data.dart';
@@ -88,7 +89,13 @@ class GraphEditorBloc extends CBloc<GraphEditorEvent, GraphEditorState> {
     String? filePath = graph.meta["filepath"];
     String data = converter.graphToFormat(graph);
     if (filePath == null || event.showDialog) {
-      filePath = await FilePicker.platform.saveFile(dialogTitle: 'Speicherort', type: FileType.custom, allowedExtensions: ['gjson', 'json'], fileName: "${graph.meta['name']}.gjson");
+      filePath = await FilePicker.platform.saveFile(
+        dialogTitle: 'Speicherort',
+        type: FileType.custom,
+        allowedExtensions: ['gjson', 'json'],
+        fileName: "${graph.meta['name']}.gjson",
+        bytes: kIsWeb ? utf8.encode(data) : null,
+      );
       if (filePath != null) {
         graph.addMeta("filepath", filePath);
       }
